@@ -1,7 +1,15 @@
 import Vue from 'vue'
-import App from './app.vue'
+import VueRouter from 'vue-router'
+import Home from './app.vue'
+import Settings from './settings.vue'
 
-new Vue({
-    el: 'app',
-      components: { App }
-})
+Vue.use(VueRouter)
+
+const router = new VueRouter({routes: [
+  { path: '/', component: Home},
+  { path: '/settings', component: Settings }
+]})
+
+const app = new Vue({
+    router
+}).$mount('#app')
