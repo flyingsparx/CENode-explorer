@@ -2,10 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
     <title>Vue Example</title>
   </head>
   <body>
     <div id="app">
+			<nav>
+				<div class="nav-wrapper">
+          <router-link to="/" class="brand-logo">Logo</router-link>
+					<ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><router-link to="/new" class="waves-effect waves-light btn"><i class="fa fa-plus"></i> New node</router-link></li>
+            <li><router-link to="/settings">Settings</router-link></li>
+					</ul>
+				</div>
+			</nav>
       <router-view></router-view>
     </div>
     <script src="dist/build.js"></script>

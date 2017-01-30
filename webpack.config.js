@@ -1,11 +1,7 @@
 module.exports = {
-  // This is the "main" file which should include all other modules
   entry: './src/main.js',
-  // Where should the compiled file go?
   output: {
-    // To the `dist` folder
     path: './dist',
-    // With the filename `build.js` so it's dist/build.js
     filename: 'build.js'
   },
   resolve: {
@@ -14,7 +10,6 @@ module.exports = {
 		}
   },
   module: {
-    // Special compilation rules
     loaders: [
 			 {
 				test: /\.js$/,
@@ -25,7 +20,8 @@ module.exports = {
         test: /\.vue$/,
 				exclude: /(node_modules|bower_components)/,
         loader: 'vue-loader'
-      }
+      },
+      { test: /\.css$/, loader: "css-loader" }
     ],
 		vue: {
 			loaders: {
