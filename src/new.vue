@@ -26,7 +26,7 @@
   export default {
     data () {
       return {
-        host: window.location.protocol + '//' + window.location.host.replace(/:[0-9]*/g, ''),
+        host: 'http://' + window.location.host.replace(/:[0-9]*/g, ''),
         agent: '',
         port: ''
       }
@@ -36,7 +36,6 @@
         if (this.agent.length && this.port) {
           const data = {agent: this.agent, port: this.port};
           this.$http.post('/nodes/create', data).then(response => {
-            console.log(response.body); 
             this.$router.push('/');
             Materialize.toast('CENode instance created', 3000, 'rounded')
           }, err => {});
