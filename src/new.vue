@@ -14,6 +14,8 @@
           <label for="port">Port number</label>
         </div>
       </div>
+      
+      <p v-if="port">The agent's address will be {{host}}:{{port}}.</p>
       <button v-on:click="create" class="btn"><i class="fa fa-check"></i> Ready</button>
     </div>
   </div>
@@ -24,7 +26,7 @@
   export default {
     data () {
       return {
-        msg: 'Hello from vue-loader!',
+        host: window.location.protocol + '//' + window.location.host.replace(/:[0-9]*/g, ''),
         agent: '',
         port: ''
       }
@@ -35,7 +37,9 @@
           const data = {agent: this.agent, port: this.port};
           this.$http.post('/nodes/create', data).then(response => {
             console.log(response.body); 
-          }, err => console.log(err));
+            this.$router.push('/');
+            Materialize.toast('CENode instance created', 3000, 'rounded')
+          }, err => {});
         }
       }
     }

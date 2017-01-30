@@ -10,6 +10,11 @@ function getRequestBody (request, callback) {
   request.on('end', () => callback(JSON.parse(body)));
 }
 
+function serveFile (filename, response) {
+  var fileStream = fs.createReadStream(filename);
+  fileStream.pipe(response);
+}
+
 const api = {
   'GET': {
     
@@ -17,18 +22,19 @@ const api = {
   'POST': {
     '/nodes/create' (request, response) {
       getRequestBody(request, body => {
-        console.log(body);
-        console.log(body.agent);
-        CEServer.startServer(body.agent, body.port);
+        try {
+          CEServer.startServer(body.agent, body.port);
+          response.writeHead(200);
+          response.end(JSON.stringify(body));
+        }
+        catch (err) {
+          response.writeHead(400);
+          response.end();
+        }
       });
     }
   }
 };
-
-function serveFile (filename, response) {
-  var fileStream = fs.createReadStream(filename);
-  fileStream.pipe(response);
-}
 
 http.createServer((request, response) => {
   const reservedRoutes = ['/', '/dist/build.js'];
@@ -41,7 +47,6 @@ http.createServer((request, response) => {
     }
   }
   else {
-    console.log(request.url);
     if (request.method in api) {
       if (request.url in api[request.method]) {
         return api[request.method][request.url](request, response);
