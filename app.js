@@ -2,7 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const CEServer = require('../CENode/src/CEServer.js');
 
-const nodes = [];
+const servers = [];
 
 function getRequestBody (request, callback) {
   let body = '';
@@ -17,13 +17,24 @@ function serveFile (filename, response) {
 
 const api = {
   'GET': {
-    
+    '/nodes' (request, response) {
+      const data = [];
+      for (const server of servers) {
+        if (server && server.node && server.node.agent) {
+          data.push({name: server.node.agent.name, port: server.port});
+        }
+      }
+      response.writeHead(200);
+      response.end(JSON.stringify(data));
+    }
   },
   'POST': {
     '/nodes/create' (request, response) {
       getRequestBody(request, body => {
         try {
-          CEServer.startServer(body.agent, body.port);
+          const server = new CEServer(body.agent, body.port);
+          server.start();
+          servers.push(server);
           response.writeHead(200);
           response.end(JSON.stringify(body));
         }
