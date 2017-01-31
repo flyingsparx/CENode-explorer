@@ -21,7 +21,12 @@ const api = {
       const data = [];
       for (const server of servers) {
         if (server && server.node && server.node.agent) {
-          data.push({name: server.node.agent.name, port: server.port});
+          data.push({
+            name: server.node.agent.name, 
+            port: server.port,
+            conceptCount: server.node.concepts.length,
+            instanceCount: server.node.instances.length
+          });
         }
       }
       response.writeHead(200, {'Content-Type': 'application/json'});
@@ -50,23 +55,41 @@ const api = {
         }
       });
     }
+  },
+  'DELETE': {
+    '/nodes' (request, response) {
+      const name = decodeURIComponent(request.url).match(/name=(.*)/);
+      if (name) {
+        for (const i in servers) {
+          const server = servers[i];
+          if (server && server.node && server.node.agent && server.node.agent.name.toLowerCase() === name[1].toLowerCase()) {
+            server.stop();
+            servers.splice(i, 1);
+            break; 
+          }
+        }
+      }
+      response.writeHead(200);
+      response.end();
+    }
   }
 };
 
 http.createServer((request, response) => {
-  const reservedRoutes = ['/', '/dist/build.js'];
-  if (request.method === 'GET' && reservedRoutes.indexOf(request.url) >= 0){
+  const reservedRoutes = ['/', '/dist/build.js', '/static'];
+  if (request.method === 'GET' && reservedRoutes.indexOf(request.url) >= 0 || request.url.indexOf('/static/') === 0){
     if (request.url === '/') {
       serveFile('./index.html', response);
     }
-    else if (request.url === '/dist/build.js') {
-      serveFile('./dist/build.js', response);
+    else {
+      serveFile('.' + request.url, response);
     }
   }
   else {
+    const path = request.url.indexOf('?') > -1 ? request.url.slice(0, request.url.indexOf('?')) : request.url;
     if (request.method in api) {
-      if (request.url in api[request.method]) {
-        return api[request.method][request.url](request, response);
+      if (path in api[request.method]) {
+        return api[request.method][path](request, response);
       }
       response.writeHead(404);
       return response.end('Not found');
