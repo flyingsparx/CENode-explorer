@@ -24,14 +24,20 @@ const api = {
           data.push({name: server.node.agent.name, port: server.port});
         }
       }
-      response.writeHead(200);
+      response.writeHead(200, {'Content-Type': 'application/json'});
       response.end(JSON.stringify(data));
+      console.log(data);
     }
   },
   'POST': {
     '/nodes/create' (request, response) {
       getRequestBody(request, body => {
         try {
+          for (const server of servers) {
+            if (server && server.node && server.node.agent && (server.node.agent.name.toLowerCase() === body.agent.toLowerCase() || server.port === body.port)){
+              throw new Error('An agent with this name already exists');
+            }
+          }
           const server = new CEServer(body.agent, body.port);
           server.start();
           servers.push(server);

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource';
-import Home from './app.vue'
+import Home from './home.vue'
 import Settings from './settings.vue'
 import New from './new.vue';
 

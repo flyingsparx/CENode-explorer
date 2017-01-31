@@ -38,7 +38,7 @@
           this.$http.post('/nodes/create', data).then(response => {
             this.$router.push('/');
             Materialize.toast('CENode instance created', 3000, 'rounded')
-          }, err => {});
+          }, err => Materialize.toast('This name or port is already in use', 4000, 'rounded'));
         }
       }
     }
