@@ -20,19 +20,20 @@
   export default {
     data () {
       return {
-        servers: this.$store.state.servers
+        servers: []
       }
     },
     methods: {
       deleteServer (server){
         if (window.confirm('Really delete?')) {
-          this.$store.dispatch('deleteServer', server.name);
-          Materialize.toast('CENode instance deleted', 3000, 'rounded');
+          this.$http.delete('/nodes?name=' + server.name);
         }
       }
     },
     created (){
-      this.$store.dispatch('updateServerList'); 
+      this.$http.get('/nodes').then(response => {
+        this.servers = response.body;
+      }, err => console.log(err));
     }
   }
 </script>

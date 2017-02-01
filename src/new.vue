@@ -16,7 +16,7 @@
       </div>
       
       <p v-if="port">The agent's address will be {{host}}:{{port}}.</p>
-      <button v-on:click="create" class="btn"><i class="fa fa-check"></i> Ready</button>
+      <button v-on:click="create" class="btn"><i class="fa fa-check"></i> Ready</button> {{stuff}}
     </div>
   </div>
 </div>
@@ -28,7 +28,7 @@
       return {
         host: 'http://' + window.location.host.replace(/:[0-9]*/g, ''),
         agent: '',
-        port: ''
+        port: '',
       }
     },
     methods: {
