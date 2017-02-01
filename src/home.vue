@@ -1,19 +1,21 @@
 <template>
 <div class="container">
-  <h2>Running CENode instances</h2>
-  <div class="card-panel teal lighten-2 white-text" v-if="!servers || !servers.length">Looks like there aren't any running yet. Get started by <router-link to="/new">launching a new instance</router-link>.</div>
-
-  <ul class="collection">
-    <li class="collection-item avatar" v-for="server in servers">
-      <img src="/static/node.png" alt="" class="circle">
-      <span class="title">{{server.name}}</span>
-      <p><b>Running on port {{server.port}}</b></p>
-      <div class="chip">{{server.conceptCount}} concepts</div>
-      <div class="chip">{{server.instanceCount}} instances</div>
-      <a href="#!" class="btn-flat"><i class="fa fa-cogs"></i> Manage</a>
-      <button class="btn-flat red-text" v-on:click="deleteServer(server)"><i class="fa fa-trash"></i></button>
-    </li>
-  </ul>
+  <h3 class="center-align">Welcome</h3>
+  <div class="card-panel orange lighten-4" v-if="!servers || !servers.length"><i class="fa fa-exclamation-triangle"></i> Looks like there aren't any CENodes running yet. Get started by <router-link to="/new">launching a new instance</router-link>.</div>
+  <div v-else>
+    <h4 class="center-align">Choose a CENode instance to manage</h4>
+    <ul class="collection">
+      <li class="collection-item avatar blue-grey white-text" v-for="server in servers">
+        <img src="/static/node.png" alt="" class="circle">
+        <span class="title">{{server.name}}</span>
+        <p>Running on port {{server.port}}</p>
+        <div class="chip">{{server.conceptCount}} concepts</div>
+        <div class="chip">{{server.instanceCount}} instances</div>
+        <a href="#!" class="btn-flat white-text"><i class="fa fa-cogs"></i> Manage</a>
+        <button class="secondary-content btn-flat red-text" v-on:click="deleteServer(server)"><i class="fa fa-trash"></i> Stop</button>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -40,6 +42,9 @@
 <style>
   .collection .collection-item.avatar span.title{
     font-size:20px;
+  }
+  .chip{
+    margin:10px 5px;
   }
 </style>
 
