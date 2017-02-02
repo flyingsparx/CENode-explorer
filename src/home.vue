@@ -34,7 +34,7 @@
       }
     },
     created (){
-      //this.$store.dispatch('updateServerList'); 
+      this.$store.dispatch('updateServerList'); 
     }
   }
 </script>

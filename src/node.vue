@@ -3,13 +3,16 @@
   <div v-if="server.name">
     <h2>{{server.name}} <small>on port {{server.port}}</small></h2>
     <button class="waves-effect btn" v-on:click="openCEModal"><i class="fa fa-plus"></i> Add CE</button>
-    <button class="waves-effect btn"><i class="fa fa-ban"></i> Clear node</button>
+    <button class="waves-effect btn" v-on:click="clearNode"><i class="fa fa-ban"></i> Clear node</button>
 
     <div class="row">
       <div class="col s12 m6">
         <h4>Recent instances</h4>
         <ul class="collection">
-          <li v-for="instance in instances" class="collection-item">{{instance.name}}</li>
+          <li v-for="instance in instances" class="collection-item">
+            <router-link :to="{name: 'instance', params: {name: server.name, id: instance.id}}">{{instance.name}}</router-link>
+            <span class="badge teal white-text"><a href="#">{{instance.conceptName}}</a></span>
+          </li>
         </ul>
       </div>
 
@@ -17,7 +20,9 @@
         <h4>Recent concepts</h4>
         
         <ul class="collection">
-          <li v-for="concept in concepts" class="collection-item">{{concept.name}}</li>
+          <li v-for="concept in concepts" class="collection-item">
+            <router-link :to="{name: 'concept', params: {name: server.name, id: concept.id}}">{{concept.name}}</router-link>
+          </li>
         </ul>
       </div>
     </div>
@@ -76,10 +81,24 @@
       },
       submitCE () {
         this.$http.post('http://localhost:' + this.server.port + '/sentences', this.customCE).then(() => refreshInfo(this));
+      },
+      clearNode () {
+        const response = window.confirm('Really clear this node? This will remove all instances and concepts from the knowledge base.');
+        if (response) {
+          this.$http.put('http://localhost:' + this.server.port + '/reset').then(() => refreshInfo(this));
+        }
       }
     },
     created () {
-      refreshInfo(this);
+      if (this.server.port) {
+        refreshInfo(this);
+      }
     }
   }
 </script>
+
+<style>
+  .white-text a{
+    color:white;
+  }
+</style>
