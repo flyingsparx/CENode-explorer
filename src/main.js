@@ -7,6 +7,7 @@ import Home from './home.vue'
 import Settings from './settings.vue'
 import New from './new.vue';
 import Node from './node.vue';
+import Concept from './concept.vue';
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
@@ -65,7 +66,7 @@ const router = new VueRouter({routes: [
   { path: '/settings', component: Settings },
   { path: '/new', component: New},
   { path: '/node/:name', component: Node, name: 'node'},
-  { path: '/node/:name/concept/:id', component: null, name: 'concept'},
+  { path: '/node/:name/concept/:id', component: Concept, name: 'concept'},
   { path: '/node/:name/instance/:id', component: null, name: 'instance'}
 ]})
 
