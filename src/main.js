@@ -64,7 +64,9 @@ const router = new VueRouter({routes: [
   { path: '/', component: Home},
   { path: '/settings', component: Settings },
   { path: '/new', component: New},
-  { path: '/node/:name', component: Node, name: 'node'}
+  { path: '/node/:name', component: Node, name: 'node'},
+  { path: '/node/:name/concept/:id', component: null, name: 'concept'},
+  { path: '/node/:name/instance/:id', component: null, name: 'instance'}
 ]})
 
 VuexRouterSync.sync(store, router);
