@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource';
+import VuexRouterSync from 'vuex-router-sync';
 import Vuex from 'vuex';
 import Home from './home.vue'
 import Settings from './settings.vue'
@@ -14,6 +15,15 @@ const store = new Vuex.Store({
   state: {
     servers: [],
     currentServer: null
+  },
+  getters: {
+    currentServer: state => {
+      for (const server of state.servers) {
+        if (server.name === state.route.params['name']) {
+          return server;
+        }
+      }
+    }
   },
   mutations: {
     updateServerList (state, list){
@@ -53,7 +63,9 @@ const store = new Vuex.Store({
 const router = new VueRouter({routes: [
   { path: '/', component: Home},
   { path: '/settings', component: Settings },
-  { path: '/new', component: New}
+  { path: '/new', component: New},
 ]})
+
+VuexRouterSync.sync(store, router);
 
 new Vue({router, store}).$mount('#app')
