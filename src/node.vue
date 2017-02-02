@@ -35,11 +35,9 @@
     watch: {
       server: function (val, oldVal) {
         if (val) {
-          this.$http.get('http://localhost:' + val.port + '/instances').then(response => {
-            this.instances = response.body;
-          });
-          this.$http.get('http://localhost:' + val.port + '/concepts').then(response => {
-            this.concepts = response.body;
+          this.$http.get('http://localhost:' + val.port + '/info').then(response => {
+            this.instances = response.body.recentInstances;
+            this.concepts = response.body.recentConcepts;
           });
         }
       }
