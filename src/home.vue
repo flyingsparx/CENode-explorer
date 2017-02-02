@@ -11,7 +11,7 @@
         <p>Running on port {{server.port}}</p>
         <div class="chip">{{server.conceptCount}} concepts</div>
         <div class="chip">{{server.instanceCount}} instances</div>
-        <a href="#!" class="btn-flat white-text"><i class="fa fa-cogs"></i> Manage</a>
+        <router-link :to="{ name: 'node', params: { name: server.name }}" class="btn-flat white-text"><i class="fa fa-cogs"></i> Manage</router-link>
         <button class="secondary-content btn-flat red-text" v-on:click="deleteServer(server)"><i class="fa fa-trash"></i> Stop</button>
       </li>
     </ul>
@@ -34,7 +34,7 @@
       }
     },
     created (){
-      this.$store.dispatch('updateServerList'); 
+      //this.$store.dispatch('updateServerList'); 
     }
   }
 </script>

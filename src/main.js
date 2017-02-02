@@ -6,6 +6,7 @@ import Vuex from 'vuex';
 import Home from './home.vue'
 import Settings from './settings.vue'
 import New from './new.vue';
+import Node from './node.vue';
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
@@ -13,8 +14,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    servers: [],
-    currentServer: null
+    servers: []
   },
   getters: {
     currentServer: state => {
@@ -23,6 +23,7 @@ const store = new Vuex.Store({
           return server;
         }
       }
+      return {};
     }
   },
   mutations: {
@@ -53,7 +54,6 @@ const store = new Vuex.Store({
     },
     deleteServer (context, name) {
       Vue.http.delete('/nodes?name=' + name).then(response => {
-        console.log('here')
         context.commit('deleteServer', name);
       });
     }
@@ -64,8 +64,10 @@ const router = new VueRouter({routes: [
   { path: '/', component: Home},
   { path: '/settings', component: Settings },
   { path: '/new', component: New},
+  { path: '/node/:name', component: Node, name: 'node'}
 ]})
 
 VuexRouterSync.sync(store, router);
 
 new Vue({router, store}).$mount('#app')
+store.dispatch('updateServerList');
