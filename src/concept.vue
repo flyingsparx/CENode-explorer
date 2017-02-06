@@ -1,7 +1,7 @@
 <template>
 <div class="container">
   <h1>{{concept.name}} <label>Concept</label></h1>
-  <p v-if="concept.parents && concept.parents.length">Inherits from <span class="badge parent teal white-text" v-for="parent in concept.parents"><router-link :to="{name: 'concept', params: {name:server.name, id: parent.id}}">{{parent.name}}</router-link></span></p>
+  <p v-if="concept.parents && concept.parents.length">Directly inherits from <span class="badge parent teal white-text" v-for="parent in concept.parents"><router-link :to="{name: 'concept', params: {name:server.name, id: parent.id}}">{{parent.name}}</router-link></span></p>
   <hr>
   <div class="row">
     <div class="col s12 m8">
@@ -10,7 +10,8 @@
     <div class="col s12 m4">
       <div class="card light-blue lighten-4">
         <div class="card-content">
-          <span class="card-title">Instances</span>
+          <span class="card-title">Direct instances</span>
+          <button class="btn"><i class="fa fa-plus"></i> New</button>
           <ul>
             <li v-for="instance of concept.instances"><router-link :to="{name: 'instance', params: {name: server.name, id: instance.id}}">{{instance.name}}</router-link></li>
           </ul>
@@ -67,6 +68,7 @@
   }
   .badge.parent {
     float:none;
-    margin:2px 0px;
+    margin:0px 4px;
+    padding:3px;
   }
 </style>
