@@ -11,7 +11,7 @@
         <ul class="collection">
           <li v-for="instance in instances" class="collection-item">
             <router-link :to="{name: 'instance', params: {name: server.name, id: instance.id}}">{{instance.name}}</router-link>
-            <span class="badge teal white-text"><a href="#">{{instance.conceptName}}</a></span>
+            <span class="badge teal white-text"><router-link :to="{name: 'concept', params: {name: server.name, id: instance.conceptId}}">{{instance.conceptName}}</router-link></span>
           </li>
         </ul>
       </div>
