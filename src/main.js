@@ -8,6 +8,7 @@ import Settings from './settings.vue'
 import New from './new.vue';
 import Node from './node.vue';
 import Concept from './concept.vue';
+import Instance from './instance.vue';
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
@@ -67,7 +68,7 @@ const router = new VueRouter({routes: [
   { path: '/new', component: New},
   { path: '/node/:name', component: Node, name: 'node'},
   { path: '/node/:name/concept/:id', component: Concept, name: 'concept'},
-  { path: '/node/:name/instance/:id', component: null, name: 'instance'}
+  { path: '/node/:name/instance/:id', component: Instance, name: 'instance'}
 ]})
 
 VuexRouterSync.sync(store, router);

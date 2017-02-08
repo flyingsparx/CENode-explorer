@@ -2,10 +2,18 @@
 <div class="container">
   <h1>{{concept.name}} <label>Concept</label></h1>
   <p v-if="concept.parents && concept.parents.length">Directly inherits from <span class="badge parent teal white-text" v-for="parent in concept.parents"><router-link :to="{name: 'concept', params: {name:server.name, id: parent.id}}">{{parent.name}}</router-link></span></p>
-  <hr>
+
   <div class="row">
     <div class="col s12 m8">
-      <h3>Properties</h3>
+      <h4>Properties</h4>
+      <button class="btn"><i class="fa fa-plus"></i> New</button>
+
+      <div v-for="value of concept.values" class="card teal lighten-4"><div class="card-content">
+        {{value.label}} 
+      </div></div>
+      <div v-for="relationship of concept.relationships" class="card teal lighten-4"><div class="card-content">
+        {{relationship.label}} 
+      </div></div>
     </div>
     <div class="col s12 m4">
       <div class="card light-blue lighten-4">
