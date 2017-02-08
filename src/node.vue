@@ -6,6 +6,7 @@
     <button class="waves-effect btn" v-on:click="clearNode"><i class="fa fa-ban"></i> Clear node</button>
     <button class="waves-effect btn" v-on:click="openModelChooser"><i class="fa fa-upload"></i> Upload model</button>
     <input type="file" style="display:none" id="modelChooser" v-on:change="loadModel">
+    <a class="waves-effect btn" :href="'http://localhost:'+server.port+'/model'" download :download="server.name+'.ce'"><i class="fa fa-download"></i> Download model</a>
 
     <div class="row">
       <div class="col s12 m6">
