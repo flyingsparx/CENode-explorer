@@ -19,17 +19,19 @@
       </div></div>
     </div>
     <div class="col s12 m4">
-      <div class="card teal">
-        <div class="card-content white-text">
-          <span class="card-title">Info</span>
-          
-          <h6>Synonyms</h6>
+      <div class="card light-blue lighten-4">
+        <div class="card-content">
+          <span class="card-title">Synonyms</span>
           <ul v-if="instance.synonyms.length">
             <li v-for="synonym of instance.synonyms">{{synonym}}</li>
           </ul>
           <p v-else><i>None</i></p>
+        </div>
+      </div>
 
-          <h6>Sub-concepts</h6>
+      <div class="card light-blue lighten-4">
+        <div class="card-content">
+          <span class="card-title">Sub-concepts</span>
           <ul v-if="instance.subConcepts.length">
             <li v-for="subConcept of instance.subConcepts">
               <router-link :to="{name: 'concept', params: {name: server.name, id: subConcept.id}}">{{subConcept.name}}</router-link>

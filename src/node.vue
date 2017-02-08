@@ -4,6 +4,8 @@
     <h2>{{server.name}} <small>at localhost:{{server.port}}</small></h2>
     <button class="waves-effect btn" v-on:click="openCEModal"><i class="fa fa-plus"></i> Add CE</button>
     <button class="waves-effect btn" v-on:click="clearNode"><i class="fa fa-ban"></i> Clear node</button>
+    <button class="waves-effect btn" v-on:click="openModelChooser"><i class="fa fa-upload"></i> Upload model</button>
+    <input type="file" style="display:none" id="modelChooser" v-on:change="loadModel">
 
     <div class="row">
       <div class="col s12 m6">
@@ -87,6 +89,17 @@
         if (response) {
           this.$http.put('http://localhost:' + this.server.port + '/reset').then(() => refreshInfo(this));
         }
+      },
+      openModelChooser () {
+        $('#modelChooser').click();               
+      },
+      loadModel (event){
+        const files = event.target.files; 
+        const reader = new FileReader();
+        reader.onload = event2 => {
+          this.$http.post('http://localhost:' + this.server.port + '/sentences', event2.target.result).then(() => refreshInfo(this));
+        }; 
+        reader.readAsText(files && files[0]);
       }
     },
     created () {
