@@ -1,7 +1,7 @@
 <template>
 <div class="container">
   <div v-if="server.name">
-    <h2>{{server.name}} <small>on port {{server.port}}</small></h2>
+    <h2>{{server.name}} <small>at localhost:{{server.port}}</small></h2>
     <button class="waves-effect btn" v-on:click="openCEModal"><i class="fa fa-plus"></i> Add CE</button>
     <button class="waves-effect btn" v-on:click="clearNode"><i class="fa fa-ban"></i> Clear node</button>
 
@@ -17,7 +17,7 @@
       </div>
 
       <div class="col s12 m6">
-        <h4>Recent concepts</h4>
+        <h4>Concepts</h4>
         
         <ul class="collection">
           <li v-for="concept in concepts" class="collection-item">
