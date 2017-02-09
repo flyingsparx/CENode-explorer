@@ -24,7 +24,7 @@
         
         <ul class="collection">
           <li v-for="concept in concepts" class="collection-item">
-            <router-link :to="{name: 'concept', params: {name: server.name, id: concept.id}}">{{concept.name}}</router-link>
+            <router-link class="concept" :to="{name: 'concept', params: {name: server.name, id: concept.id}}">{{concept.name}}</router-link>
           </li>
         </ul>
       </div>
@@ -52,22 +52,28 @@
 
   function refreshInfo (component){
     component.$http.get('http://localhost:' + component.server.port + '/info').then(response => {
-      component.instances = response.body.recentInstances;
-      component.concepts = response.body.recentConcepts;
+      component.instanceList = response.body.recentInstances;
+      component.conceptList = response.body.recentConcepts;
     });
   }
 
   export default {
     data () {
       return {
-        instances: [],
-        concepts: [],
+        instanceList: [],
+        conceptList: [],
         customCE: ''
       }
     },
     computed: {
       server () {
         return this.$store.getters.currentServer
+      },
+      concepts () {
+        return this.conceptList.reverse();
+      },
+      instances () {
+        return this.instanceList.reverse();
       }
     },
     watch: {
