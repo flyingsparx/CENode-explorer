@@ -42,6 +42,10 @@
           }, err => Materialize.toast('This name or port is already in use or invalid', 4000, 'rounded'));
         }
       }
+    },
+    mounted () {
+      $('#agent').focus();
+      setTimeout(() => Materialize.updateTextFields(), 500);
     }
   }
 </script>

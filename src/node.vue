@@ -8,25 +8,19 @@
     <input type="file" style="display:none" id="modelChooser" v-on:change="loadModel">
     <a class="waves-effect btn" :href="'http://localhost:'+server.port+'/model'" download :download="server.name+'.ce'"><i class="fa fa-download"></i> Download model</a>
 
-    <div class="row">
+    <div class="row info-view">
       <div class="col s12 m6">
         <h4>Recent instances</h4>
-        <ul class="collection">
-          <li v-for="instance in instances" class="collection-item">
-            <router-link :to="{name: 'instance', params: {name: server.name, id: instance.id}}">{{instance.name}}</router-link>
-            <span class="badge teal white-text"><router-link :to="{name: 'concept', params: {name: server.name, id: instance.conceptId}}">{{instance.conceptName}}</router-link></span>
-          </li>
-        </ul>
+        <span class="instance inline labelled" v-for="instance in instances">
+          <router-link :to="{name: 'instance', params: {name: server.name, id: instance.id}}">{{instance.name}}</router-link>
+          <span class="concept"><router-link :to="{name: 'concept', params: {name: server.name, id: instance.conceptId}}">{{instance.conceptName}}</router-link>
+          </span>
+        </span>
       </div>
 
       <div class="col s12 m6">
         <h4>Concepts</h4>
-        
-        <ul class="collection">
-          <li v-for="concept in concepts" class="collection-item">
-            <router-link class="concept" :to="{name: 'concept', params: {name: server.name, id: concept.id}}">{{concept.name}}</router-link>
-          </li>
-        </ul>
+        <router-link v-for="concept in concepts" class="concept inline" :to="{name: 'concept', params: {name: server.name, id: concept.id}}">{{concept.name}}</router-link>
       </div>
     </div>
 
@@ -70,7 +64,13 @@
         return this.$store.getters.currentServer
       },
       concepts () {
-        return this.conceptList.reverse();
+        return this.conceptList.sort((a, b) => {
+          if (a.name < b.name)
+            return -1;
+          if (a.name > b.name)
+            return 1;
+          return 0;
+        });
       },
       instances () {
         return this.instanceList.reverse();
@@ -118,7 +118,7 @@
 </script>
 
 <style>
-  .white-text a{
-    color:white;
-  }
+ .info-view{
+   margin-top:60px;
+ }
 </style>
