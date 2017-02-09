@@ -3,10 +3,10 @@
   <div v-if="server.name">
     <h2>{{server.name}} <small>at localhost:{{server.port}}</small></h2>
     <button class="waves-effect btn" v-on:click="openCEModal"><i class="fa fa-plus"></i> Add CE</button>
-    <button class="waves-effect btn" v-on:click="clearNode"><i class="fa fa-ban"></i> Clear node</button>
-    <button class="waves-effect btn" v-on:click="openModelChooser"><i class="fa fa-upload"></i> Upload model</button>
+    <button class="waves-effect btn blue" v-on:click="openModelChooser"><i class="fa fa-upload"></i> Upload model</button>
     <input type="file" style="display:none" id="modelChooser" v-on:change="loadModel">
-    <a class="waves-effect btn" :href="'http://localhost:'+server.port+'/model'" download :download="server.name+'.ce'"><i class="fa fa-download"></i> Download model</a>
+    <a class="waves-effect btn blue" :href="'http://localhost:'+server.port+'/model'" download :download="server.name+'.ce'"><i class="fa fa-download"></i> Download model</a>
+    <button class="waves-effect btn red lighten-1" v-on:click="clearNode"><i class="fa fa-ban"></i> Clear node</button>
 
     <div class="row info-view">
       <div class="col s12 m6">

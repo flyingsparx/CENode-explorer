@@ -13,6 +13,10 @@
   border-radius:8px;
   margin: 0px 5px 7px 0px;
   box-shadow: 5px 5px 10px rgba(0,0,0,0.1);
+  transition:background 0.5s;
+}
+.concept:hover{
+  background:rgb(115, 171, 94);
 }
 .concept-title{
   border-bottom:4px solid rgb(135, 191, 114);
@@ -26,6 +30,10 @@
   border-radius:8px;
   margin: 0px 5px 7px 0px;
   box-shadow: 5px 5px 10px rgba(0,0,0,0.1);
+  transition:background 0.5s;
+}
+.instance:hover{
+  background:rgb(94, 117, 171);
 }
 .instance.labelled{
   padding:9px 4px 9px 12px;
