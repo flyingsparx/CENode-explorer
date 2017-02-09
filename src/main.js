@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import VueResource from 'vue-resource';
 import VuexRouterSync from 'vuex-router-sync';
 import Vuex from 'vuex';
+import Nav from './nav.vue';
 import Home from './home.vue'
 import Settings from './settings.vue'
 import New from './new.vue';
@@ -62,6 +63,7 @@ const store = new Vuex.Store({
     }
   }
 })
+store.dispatch('updateServerList');
 
 const router = new VueRouter({routes: [
   { path: '/', component: Home},
@@ -71,8 +73,7 @@ const router = new VueRouter({routes: [
   { path: '/node/:name/concept/:id', component: Concept, name: 'concept'},
   { path: '/node/:name/instance/:id', component: Instance, name: 'instance'}
 ]})
-
 VuexRouterSync.sync(store, router);
 
+Vue.component('nav-view', Nav);
 new Vue({router, store}).$mount('#app')
-store.dispatch('updateServerList');

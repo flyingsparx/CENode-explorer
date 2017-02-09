@@ -11,15 +11,7 @@
   </head>
   <body>
     <div id="app">
-			<nav>
-				<div class="nav-wrapper">
-          <router-link to="/" class="brand-logo"><img src="/static/logo.png" style="height:55px;"></router-link>
-					<ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><router-link to="/">Home</router-link></li>
-            <li><router-link to="/new" class="waves-effect waves-light btn">Launch node</router-link></li>
-					</ul>
-				</div>
-			</nav>
+	    <nav-view></nav-view>		
       <router-view></router-view>
     </div>
     <script src="dist/build.js"></script>
