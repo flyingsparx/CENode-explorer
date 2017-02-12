@@ -9,17 +9,28 @@
     <div class="col s12 m8">
       <h3>Properties</h3>
       <p v-if="!(instance.values && instance.values.length) && !(instance.relationships && instance.relationships.length)"><i>None</i></p>
+
       <div v-for="value of instance.values" class="card teal lighten-4"><div class="card-content">
         <strong>{{value.label}}</strong>:
-        <span v-if="value.targetId"><i>
-          a <router-link :to="{name: 'concept', params: {name: server.name, id: value.targetConceptId}}">{{value.targetConceptName}}</router-link> named 
-          <router-link :to="{name: 'instance', params: {name: server.name, id: value.targetId}}">{{value.targetName}}</router-link>
-        </i></span>
+        <span v-if="value.targetId">
+          <span class="instance inline labelled">
+            <router-link :to="{name: 'instance', params: {name: server.name, id: value.targetId}}">{{value.targetName}}</router-link>
+            <span class="concept"><router-link :to="{name: 'concept', params: {name: server.name, id: value.targetConceptId}}">{{value.targetConceptName}}</router-link>
+            </span>
+          </span>
+        </span>
         <span v-else="value.targetName"><i>{{value.targetName}}</i></span>
       </div></div>
+
       <div v-for="relationship of instance.relationships" class="card teal lighten-4"><div class="card-content">
-        <strong>{{relationship.label}}</strong> <i>the <router-link :to="{name: 'concept', params: {name: server.name, id: relationship.targetConceptId}}">{{relationship.targetConceptName}}</router-link> <router-link :to="{name: 'instance', params: {name: server.name, id: relationship.targetId}}">{{relationship.targetName}}</router-link></i>
+        <strong>{{relationship.label}}</strong> 
+        <span class="instance inline labelled">
+          <router-link :to="{name: 'instance', params: {name: server.name, id: relationship.targetId}}">{{relationship.targetName}}</router-link>
+          <span class="concept"><router-link :to="{name: 'concept', params: {name: server.name, id: relationship.targetConceptId}}">{{relationship.targetConceptName}}</router-link>
+          </span>
+        </span>
       </div></div>
+
     </div>
     <div class="col s12 m4">
 

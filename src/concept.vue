@@ -9,15 +9,23 @@
     <div class="col s12 m8">
       <h4>Properties</h4>
       <p v-if="!(concept.values && concept.values.length) && !(concept.relationships && concept.relationships.length)"><i>None</i></p>
+
       <div v-for="value of concept.values" class="card teal lighten-4"><div class="card-content">
-        <strong>{{value.label}}</strong> <span v-if="value.targetName"><i>of type <router-link :to="{name: 'concept', params: {name: server.name, id: value.targetId}}">{{value.targetName}}</router-link></i></span>
+        <strong>{{value.label}}</strong> 
+        <span class="concept inline" v-if="value.targetName">
+          <router-link :to="{name: 'concept', params: {name: server.name, id: value.targetId}}">{{value.targetName}}</router-link>
+        </span>
       </div></div>
+
       <div v-for="relationship of concept.relationships" class="card teal lighten-4"><div class="card-content">
-        <strong>{{relationship.label}}</strong> <i>a type of <router-link :to="{name: 'concept', params: {name: server.name, id: relationship.targetId}}">{{relationship.targetName}}</router-link></i>
+        <strong>{{relationship.label}}</strong> 
+        <span class="concept inline">
+          <router-link :to="{name: 'concept', params: {name: server.name, id: relationship.targetId}}">{{relationship.targetName}}</router-link>
+        </span>
       </div></div>
+
     </div>
     <div class="col s12 m4">
-
       <div class="card">
         <div class="card-content">
           <p><i>{{concept.ce}}</i></p>
