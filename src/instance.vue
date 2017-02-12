@@ -11,7 +11,7 @@
       <p v-if="!(instance.values && instance.values.length) && !(instance.relationships && instance.relationships.length)"><i>None</i></p>
 
       <div v-for="value of instance.values" class="card teal lighten-4"><div class="card-content">
-        <strong>{{value.label}}</strong>:
+        <strong>{{value.label}}</strong>
         <span v-if="value.targetId">
           <span class="instance inline labelled">
             <router-link :to="{name: 'instance', params: {name: server.name, id: value.targetId}}">{{value.targetName}}</router-link>
@@ -19,7 +19,7 @@
             </span>
           </span>
         </span>
-        <span v-else="value.targetName"><i>{{value.targetName}}</i></span>
+        <span v-else="value.targetName"><br><span class="raw">{{value.targetName}}</span></span>
       </div></div>
 
       <div v-for="relationship of instance.relationships" class="card teal lighten-4"><div class="card-content">

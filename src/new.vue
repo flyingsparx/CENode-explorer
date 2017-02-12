@@ -1,7 +1,7 @@
 <template>
 <div class="container">
   <h2>Launch new CENode instance</h2>
-  <p>Specify an agent name and a port number to continue.</p>
+  <p>Specify an agent name and a port number.</p>
   <div class="row">
     <div class="col m6">
       <div class="row">
@@ -16,15 +16,17 @@
           <label for="port">Port number (1024 - 65536)</label>
         </div>
 
-        <p>Select CE models to bundle with the launch.<br><span class="amber-text text-lighten-2">You can always add more later.</span>
-        <p>
-          <input v-model="preloadedModels" value="core" type="checkbox" id="core_model">
-          <label for="core_model">Core</label>
-        </p>
-        <p>
-          <input v-model="preloadedModels" value="server"  type="checkbox" id="server_model">
-          <label for="server_model">Server</label>
-        </p>
+        <div class="input-field col s12">
+          <p>Select CE models to bundle with the launch.</p>
+          <p>
+            <input v-model="preloadedModels" value="core" type="checkbox" id="core_model">
+            <label for="core_model">Core (recommended) - <small>includes the basics to get up-and running with cards, policies, and rules</small></label>
+          </p>
+          <p>
+            <input v-model="preloadedModels" value="server"  type="checkbox" id="server_model">
+            <label for="server_model">Server - <small>adds extra policy information to enable the node to act as a relay for other nodes. <span class="amber-text">Requires the core model</span></small></label>
+          </p>
+        </div>
 
       </div>
       
