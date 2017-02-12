@@ -42,7 +42,7 @@ const api = {
               throw new Error('An agent with this name already exists');
             }
           }
-          const server = new CEServer(body.agent, body.port);
+          const server = new CEServer(body.agent, body.port, body.models);
           server.start();
           servers.push(server);
           response.writeHead(200);

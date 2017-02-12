@@ -5,14 +5,27 @@
   <div class="row">
     <div class="col m6">
       <div class="row">
+
         <div class="input-field col s12">
           <input v-model="agent" placeholder="Moira" id="agent" type="text" class="validate">
           <label for="agent">Agent name</label>
         </div>
+
         <div class="input-field col s12">
           <input v-model="port" id="port" type="number" class="validate" placeholder="5678">
           <label for="port">Port number (1024 - 65536)</label>
         </div>
+
+        <p>Select CE models to bundle with the launch.<br><span class="amber-text text-lighten-2">You can always add more later.</span>
+        <p>
+          <input v-model="preloadedModels" value="core" type="checkbox" id="core_model">
+          <label for="core_model">Core</label>
+        </p>
+        <p>
+          <input v-model="preloadedModels" value="server"  type="checkbox" id="server_model">
+          <label for="server_model">Server</label>
+        </p>
+
       </div>
       
       <p v-if="port">The agent's address will be {{host}}:{{port}}.</p>
@@ -30,12 +43,14 @@
         host: 'http://' + window.location.host.replace(/:[0-9]*/g, ''),
         agent: '',
         port: '',
+        preloadedModels: ['core']
       }
     },
     methods: {
       create (event) {
         if (this.agent.length && this.port) {
-          const data = {agent: this.agent, port: this.port};
+          const data = {agent: this.agent, port: this.port, models: this.preloadedModels};
+          console.log(data)
           this.$http.post('/nodes/create', data).then(response => {
             this.$router.push('/');
             Materialize.toast('CENode instance created', 3000, 'rounded')
