@@ -17,7 +17,8 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    servers: []
+    servers: [],
+    hostName: window.location.host.match(/([a-zA-Z0-9\-_]*):[0-9]+/)[1]
   },
   getters: {
     currentServer: state => {
