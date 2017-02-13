@@ -71,8 +71,7 @@
 <script>
 
   function refreshInfo (component){
-    component.$http.get('http://localhost:' + component.server.port + '/instance?id=' + component.$store.state.route.params['id']).then(response => {
-      console.log(response.body);
+    component.$http.get('http://' + component.$store.state.hostName + ':' + component.server.port + '/instance?id=' + component.$store.state.route.params['id']).then(response => {
       component.instance = response.body;
     });
   }

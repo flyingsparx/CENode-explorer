@@ -29,8 +29,13 @@
         </div>
 
       </div>
-      
-      <p v-if="port">The agent's address will be {{host}}:{{port}}.</p>
+     
+      <div v-if="port" class="card light-blue lighten-4">
+        <div class="card-content">
+          <p><i class="fa fa-info"></i> The agent's address will be <b>{{$store.state.hostName}}:{{port}}</b>.</p>
+        </div>
+      </div>
+
       <button v-on:click="create" class="btn"><i class="fa fa-rocket"></i> Launch</button>
       <router-link to="/" class="btn-flat">Cancel</router-link>
     </div>
@@ -42,7 +47,6 @@
   export default {
     data () {
       return {
-        host: 'http://' + window.location.host.replace(/:[0-9]*/g, ''),
         agent: '',
         port: '',
         preloadedModels: ['core']

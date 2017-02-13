@@ -1,11 +1,11 @@
 <template>
 <div class="container">
   <div v-if="server.name">
-    <h2>{{server.name}} <small>at {{hostName}}:{{server.port}}</small></h2>
+    <h2>{{server.name}} <small>at {{$store.state.hostName}}:{{server.port}}</small></h2>
     <button class="waves-effect btn" v-on:click="openCEModal"><i class="fa fa-plus"></i> Add CE</button>
     <button class="waves-effect btn blue" v-on:click="openModelChooser"><i class="fa fa-upload"></i> Upload model</button>
     <input type="file" style="display:none" id="modelChooser" v-on:change="loadModel">
-    <a class="waves-effect btn blue" :href="'http://localhost:'+server.port+'/model'" download :download="server.name+'.ce'"><i class="fa fa-download"></i> Download model</a>
+    <a class="waves-effect btn blue" :href="'http://'+$store.state.hostName+':'+server.port+'/model'" download :download="server.name+'.ce'"><i class="fa fa-download"></i> Download model</a>
     <button class="waves-effect btn red lighten-1" v-on:click="clearNode"><i class="fa fa-ban"></i> Clear node</button>
 
     <div class="row info-view">
@@ -45,7 +45,7 @@
 <script>
 
   function refreshInfo (component){
-    component.$http.get('http://localhost:' + component.server.port + '/info').then(response => {
+    component.$http.get('http://' + component.$store.state.hostName + ':' + component.server.port + '/info').then(response => {
       component.instanceList = response.body.recentInstances;
       component.conceptList = response.body.recentConcepts;
     });
@@ -56,8 +56,7 @@
       return {
         instanceList: [],
         conceptList: [],
-        customCE: '',
-        hostName: this.$store.state.hostName
+        customCE: ''
       }
     },
     computed: {
@@ -90,12 +89,12 @@
         $('#modal1').modal('open');
       },
       submitCE () {
-        this.$http.post('http://localhost:' + this.server.port + '/sentences', this.customCE).then(() => refreshInfo(this));
+        this.$http.post('http://' + this.$store.state.hostName + ':' + this.server.port + '/sentences', this.customCE).then(() => refreshInfo(this));
       },
       clearNode () {
         const response = window.confirm('Really clear this node? This will remove all instances and concepts from the knowledge base.');
         if (response) {
-          this.$http.put('http://localhost:' + this.server.port + '/reset').then(() => refreshInfo(this));
+          this.$http.put('http://' + this.$store.state.hostName + ':' + this.server.port + '/reset').then(() => refreshInfo(this));
         }
       },
       openModelChooser () {
@@ -105,7 +104,7 @@
         const files = event.target.files; 
         const reader = new FileReader();
         reader.onload = event2 => {
-          this.$http.post('http://localhost:' + this.server.port + '/sentences', event2.target.result).then(() => refreshInfo(this));
+          this.$http.post('http://' + this.$store.state.hostName + ':' + this.server.port + '/sentences', event2.target.result).then(() => refreshInfo(this));
         }; 
         reader.readAsText(files && files[0]);
       }
