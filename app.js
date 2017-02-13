@@ -11,6 +11,9 @@ function getRequestBody (request, callback) {
 }
 
 function serveFile (filename, response) {
+  if (filename.indexOf('css') > -1) {
+    response.setHeader('Content-Type', 'text/css');
+  }
   var fileStream = fs.createReadStream(filename);
   fileStream.pipe(response);
 }
