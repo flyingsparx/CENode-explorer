@@ -56,7 +56,6 @@
       create (event) {
         if (this.agent.length && this.port) {
           const data = {agent: this.agent, port: this.port, models: this.preloadedModels};
-          console.log(data)
           this.$http.post('/nodes/create', data).then(response => {
             this.$router.push('/');
             Materialize.toast('CENode instance created', 3000, 'rounded')

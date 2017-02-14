@@ -5,20 +5,20 @@ module.exports = {
     filename: 'build.js'
   },
   resolve: {
-		alias: {
-			'vue$': 'vue/dist/vue.common.js'
-		}
+    alias: {
+      'vue$': 'vue/dist/vue.common.js'
+    }
   },
   module: {
     loaders: [
-			 {
-				test: /\.js$/,
-				exclude: /(node_modules|bower_components)/,
-				loader: 'babel-loader'
-			},
+       {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        loader: 'babel-loader'
+      },
       {
         test: /\.vue$/,
-				exclude: /(node_modules|bower_components)/,
+        exclude: /(node_modules)/,
         loader: 'vue-loader',
         options: {
           loaders: {

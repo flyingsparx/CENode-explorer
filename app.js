@@ -1,6 +1,6 @@
 const http = require('http');
 const fs = require('fs');
-const CEServer = require('../CENode/src/CEServer.js');
+const CEServer = require('cenode/src/CEServer.js');
 
 const servers = [];
 

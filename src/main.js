@@ -52,9 +52,7 @@ const store = new Vuex.Store({
   },
   actions: {
     updateServerList (context) {
-      Vue.http.get('/nodes').then(response => {
-        context.commit('updateServerList', response.body); 
-      }, err => console.log(err));
+      Vue.http.get('/nodes').then(response => context.commit('updateServerList', response.body));
     },
     deleteServer (context, name) {
       Vue.http.delete('/nodes?name=' + name).then(response => {
