@@ -9,11 +9,11 @@
 
 ## Introduction
 
-CENode Explorer is a simple web-based graphical front-end to CENode. In particular:
+CENode Explorer is a simple web-based graphical front-end to CENode. In particular, it supports:
 
-* Launching CENode instances on the server
-* Managing CENode instances through CE
-* Navigating an instance's knowledge base and conceptual model
+* Launching CENodes on the server
+* Managing CENodes through CE
+* Navigating an node's knowledge base and conceptual model
 * Other utilities
 
 This project is simply a wrapper around the CENode library's inbuilt HTTP APIs. Please see the following section for further details on this.
@@ -45,13 +45,13 @@ Once Docker is installed, simply run the app with:
 $ docker run -p 8080:3000 flyingsparx/cenode-exolorer
 ```
 
-This command will pull our pre-built `cenode-explorer` image from the Docker hub and run it. The first time you run it will take longer as the base images will need to be downloaded and extracted to your local machine.
+This command will pull our pre-built `cenode-explorer` image from the Docker hub and run a container from it. The first time you run it will take longer as the base images will need to be downloaded and extracted to your local machine.
 
 The `-p` flag tells Docker to map the application port within Docker (3000) onto port 8080 on the host machine, meaning you can now navigate to [localhost:8080](http://localhost:8080) (or whichever host/port combo is appropriate for your use) to view the app.
 
 This particular point poses a problem, since although we know the default port number of the CENode Explorer app itself (3000), we don't know which ports subsequent CENode instances will be available at yet (since they haven't been launched).
 
-Therefore, you may need to map additional ports in order to launch and access CENode instances over HTTP:
+Therefore, you may need to map additional ports in your container in order to launch and access CENode instances over HTTP:
 
 ```bash
 $ docker run -p 8080:3000 -p 2222:2222 -p 3333:3333 flyingsparx/cenode-explorer
@@ -68,7 +68,7 @@ $ git clone git@github.com:flyingsparx/CENode-explorer.git && cd CENode-explorer
 $ docker build -t my-cenode-explorer .
 ```
 
-And then you can run your own image using:
+And then you can run a container from your own image using:
 
 ```bash
 $ docker run -p 8080:3000 my-cenode-explorer
