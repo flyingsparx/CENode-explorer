@@ -1,5 +1,5 @@
 var webpack = require('webpack')
-var config = require('./webpack.config.js');
+var config = require('./.webpack-development.config.js');
 
 config.plugins = [
   new webpack.DefinePlugin({

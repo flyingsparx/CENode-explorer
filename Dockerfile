@@ -12,8 +12,8 @@ ADD index.html /app
 ADD src/ app/src
 ADD static/ /app/static
 ADD .babelrc /app
-ADD webpack.config.js /app
-ADD webpack-production.config.js /app
+ADD .webpack-development.config.js /app
+ADD .webpack-production.config.js /app
 
 WORKDIR /app
 RUN /usr/bin/npm install
