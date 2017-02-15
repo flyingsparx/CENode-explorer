@@ -2,11 +2,24 @@
 <div class="container">
   <div v-if="server.name">
     <h2>{{server.name}} <small>at {{$store.state.hostName}}:{{server.port}}</small></h2>
-    <button class="waves-effect btn" v-on:click="openCEModal"><i class="fa fa-plus"></i> Add CE</button>
-    <button class="waves-effect btn blue" v-on:click="openModelChooser"><i class="fa fa-upload"></i> Upload model</button>
+
+    <div class="hide-on-med-and-down">
+      <button class="waves-effect btn" v-on:click="openCEModal"><i class="fa fa-plus"></i> Add CE</button>
+      <button class="waves-effect btn blue" v-on:click="openModelChooser"><i class="fa fa-upload"></i> Upload model</button>
+      <input type="file" style="display:none" id="modelChooser" v-on:change="loadModel">
+      <a class="waves-effect btn blue" :href="'http://'+$store.state.hostName+':'+server.port+'/model'" download :download="server.name+'.ce'"><i class="fa fa-download"></i> Download model</a>
+      <button class="waves-effect btn red lighten-1" v-on:click="clearNode"><i class="fa fa-ban"></i> Clear node</button>
+    </div>
+
     <input type="file" style="display:none" id="modelChooser" v-on:change="loadModel">
-    <a class="waves-effect btn blue" :href="'http://'+$store.state.hostName+':'+server.port+'/model'" download :download="server.name+'.ce'"><i class="fa fa-download"></i> Download model</a>
-    <button class="waves-effect btn red lighten-1" v-on:click="clearNode"><i class="fa fa-ban"></i> Clear node</button>
+    <ul id='node-dropdown' class='dropdown-content'>
+      <li><a href="#" v-on:click="openCEModal"><i class="fa fa-plus"></i> Add CE</a></li>
+      <li><a href="#" v-on:click="openModelChooser"><i class="fa fa-upload"></i> Upload model</a></li>
+      <li><a :href="'http://'+$store.state.hostName+':'+server.port+'/model'" download :download="server.name+'.ce'"><i class="fa fa-download"></i> Download model</a></li>
+      <li class="divider"></li>
+      <li><a href="#" class="red-text" v-on:click="clearNode"><i class="fa fa-ban"></i> Clear node</a></li>
+    </ul>
+    <button class="waves-effect btn hide-on-large-only node-dropdown-button" data-activates="node-dropdown">Options <i class="fa fa-caret-down"></i></button>
 
     <div class="row info-view">
       <div class="col s12 m6">
@@ -28,7 +41,8 @@
 
 <div id="modal1" class="modal bottom-sheet">
   <div class="modal-content">
-    <h4>Add CE to the node</h4>
+    <h4>Add CE</h4>
+    <p>Add line-separated CE sentences to be processed in-order by the node.</p>
     <div class="input-field">
       <textarea id="ce-field" class="materialize-textarea" v-model="customCE"></textarea>
       <label for="ce-field">Enter CE</label>
@@ -84,20 +98,23 @@
       }
     },
     methods: {
-      openCEModal () {
+      openCEModal (event) {
+        event.preventDefault();
         $('.modal').modal();
         $('#modal1').modal('open');
       },
       submitCE () {
         this.$http.post('http://' + this.$store.state.hostName + ':' + this.server.port + '/sentences', this.customCE).then(() => refreshInfo(this));
       },
-      clearNode () {
+      clearNode (event) {
+        event.preventDefault();
         const response = window.confirm('Really clear this node? This will remove all instances and concepts from the knowledge base.');
         if (response) {
           this.$http.put('http://' + this.$store.state.hostName + ':' + this.server.port + '/reset').then(() => refreshInfo(this));
         }
       },
-      openModelChooser () {
+      openModelChooser (event) {
+        event.preventDefault();
         $('#modelChooser').click();               
       },
       loadModel (event){
@@ -113,6 +130,9 @@
       if (this.server.port) {
         refreshInfo(this);
       }
+    },
+    mounted () {
+      $('.node-dropdown-button').dropdown({constrainWidth: false});
     }
   }
 </script>
@@ -120,5 +140,9 @@
 <style>
  .info-view{
    margin-top:60px;
+ }
+ h2 small{
+   font-size:14px;
+   color:rgb(100,100,100);
  }
 </style>
