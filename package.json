@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "description": "Explorer tool for CENode instances.",
   "dependencies": {
-    "cenode": "^3.0.3",
+    "cenode": "^3.0.6",
     "materialize-css": "^0.98.0",
     "vue": "^2.1.10",
     "vue-resource": "^1.1.0",
